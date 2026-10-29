@@ -51,7 +51,7 @@ export async function closeSource(path: string) {
   const pending = openDocs.get(path);
   openDocs.delete(path);
   for (const key of thumbs.keys()) if (key.startsWith(`${path}#`)) thumbs.delete(key);
-  if (pending) await (await pending).destroy().catch(() => {});
+  if (pending) await (await pending).loadingTask.destroy().catch(() => {});
 }
 
 export type Inspection = { kind: SourceKind; pageCount: number; size: number };
